@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>光环之下：飞行养成生的停飞困境</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+    -->
+        
+    <!-- All necessary scripts are included here -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/MotionPathPlugin.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simplex-noise/2.4.0/simplex-noise.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <script src="js/echarts.min.js"></script>
+
+</head>
+<body>
+    <div id="hero-scroll-wrapper">
+        <header id="hero">
+            <div id="hero-animation-container">
+                <img src="assets/images/hero-frame-1-pilot.jpg" alt="光环之下的飞行员" class="hero-frame" id="frame-1">
+                <img src="assets/images/hero-frame-2-person.jpg" alt="失去光环的普通人" class="hero-frame" id="frame-2">
+                <img src="assets/images/hero-frame-3-driver.jpg" alt="成为外卖员" class="hero-frame" id="frame-3">
+            </div>
+            <div class="hero-content">
+                <h1 id="main-title">光环之下</h1>
+                <p class="subtitle">飞行养成生的停飞困境</p>
+                <p class="scroll-indicator">向下滚动，开始阅读</p>
+                <div id="scroll-arrow">↓</div>
+            </div>
+            <div class="hero-overlay"></div>
+        </header>
+    </div>
+
+    <main id="story-content">
+        <!-- ===== MODULE 1 WRAPPER START ===== -->
+        <div class="module-wrapper" id="module-one-wrapper">
+            <section class="section-header-image" id="header-selection">
+                <div class="header-content">
+                    <h2>01 光环褪去</h2>
+                </div>
+            </section>
+            
+            <!-- ===== 这是需要添加/修正的部分 ===== -->
+            <section class="cinematic-lead-section">
+                <p class="cinematic-lead">成为飞行养成生，是学子逐梦蓝天最现实的起点。</p>
+            </section>
+
+            <section class="text-section">
+                <p>
+                    <span class="tooltip-trigger" data-tooltip-custom> <!-- 1. 我们给它一个新属性作为标记 -->
+                        飞行养成生
+                        <span class="tooltip-content"> <!-- 2. 这里是新的 tooltip 内容容器 -->
+                            <strong>飞行养成生</strong>模式是中国民航飞行员培养体系中的一种主流模式，特指从高中应届毕业生中选拔学员，通过'学历教育+飞行技能培训'一体化培养成为民航飞行员的方式。
+                        </span>
+                    </span>
+                    在中国的数量已经超过5万，是中国民航业超过80%的现役飞行员来源。
+                </p>                
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        <p>这是人生的铁饭碗。</p>
+                    </div>
+                    <div class="testimonial-author-info">
+                        <cite>在十八岁生日后的第三天，与某航司签订"飞行养成生"合同时，林飞这样想。</cite>
+                    </div>
+                </div>
+                <p>在成为飞行学员之前，林飞已经历<span class="text-primary-color">困难重重的筛选流程</span>，高于90%的淘汰率使这份铁饭碗更为来之不易。</p>
+            </section>
+
+            <section id="funnel-animation-container">
+                <div id="sticky-wrapper">
+                    <div id="funnel-canvas-wrapper">
+                        <canvas id="particle-canvas"></canvas>
+                    </div>
+                    <div id="funnel-text-area">
+                        <div id="funnel-text-container">
+                            <p id="funnel-text-line1"></p>
+                            <p id="funnel-text-line2"></p>
+                            <p id="funnel-text-line3"></p>
+                        </div>
+                    </div>
+                    <div id="final-reveal-section"></div>
+                </div>
+            </section>
+            <section class="text-section">
+                 <div class="character-intro">
+                    <video class="intro-avatar" src="assets/videos/avatar-linfei.mp4" autoplay loop muted playsinline></video>
+                    <h4>飞行学员 - 林飞</h4>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        <p>我当时觉得学飞就是一门不会被淘汰掉的手艺......而且高中同学也都觉得能够成为飞行员是一件荣誉的事情。在我们那个小县城，传出去不说和清华北大比吧，怎么着人家也觉得相当于考了个985。</p>
+                    </div>
+                </div>
+                <p>对于林飞来说，成为养成生意味着未来能够有一份<span class="text-primary-color">稳定</span>的工作；而对于签约的航空公司而言，许多像林飞这样通过严苛选拔的学员进入飞行养成生计划，能够保障航司在数年后获得<span class="text-primary-color">稳定</span>的飞行员来源。</p>
+                <p>在民航业蓬勃发展的黄金年代（2010-2019），航司纷纷给出"养成生返岗月薪超5万"的承诺，用白纸黑字的合同竞逐未来飞行员；而在养成生心中，这条契约划定的道路，亦是一份荣耀保障。</p>
+                
+
+                <p>林飞与航司签订的合同中规定，如果相关训练与考试全部通过，他就能在完成训练后回到公司成为一名职业民航飞行员。对于兢兢业业参加着各种训练任务，顺利通过课业考核并完成私照、商照、英语考试以及理论考试的林飞来说，他的未来理应是一片坦途。</p>
+            </section>
+            <section class="text-section">
+                <p class="lead">七年过去，林飞成为了一名网约车司机。</p>
+                <p>在他的网约车出发前，林飞下车围绕着汽车走了一圈以确保车况一切正常，"去年开小飞机的时候，上机前总是为了安全会绕着飞机走好几圈检查一下，习惯了。"</p>
+
+                <div class="testimonial-card">
+                     <div class="testimonial-header">
+                        <video class="testimonial-avatar" src="assets/videos/avatar-linfei.mp4" autoplay loop muted playsinline></video>
+                        <div class="testimonial-author-info">
+                            <h5>林飞</h5>
+                        </div>
+                    </div>
+                    <div class="testimonial-text">
+                        <p>我父母都是工人，能供我读完大学不容易......没想到读完飞行员我最后只得到一个高中文凭。</p>
+                    </div>
+                </div>
+
+                <p>跟与他同届的几百名飞行养成生一样，林飞被停飞了。</p>
+                <p>所谓"停飞"，本身是针对飞行养成生的一种筛选手段。从理论考试到飞行考核，养成生们必须通过层层考核标准的挑战，而被淘汰者就会面临停飞，无缘进入航司担任飞行员。</p>
+                 
+                <div class="testimonial-card testimonial-card--expert">
+                    <div class="testimonial-header">
+                        <video class="testimonial-avatar" src="assets/videos/avatar-xiaoyang.mp4" autoplay loop muted playsinline></video>
+                        <div class="testimonial-author-info">
+                            <h5>肖杨</h5>
+                            <cite>资深飞行员</cite>
+                        </div>
+                    </div>
+                    <div class="testimonial-text">
+                        <p>正常情况下停飞率在10%到15%左右，有的人是学业不够刻苦，有的人是身体查出来不适合飞，也有很多是在实机训练的时候淘汰。</p>
+                    </div>
+                </div>
+
+            </section>
+    
+            <section id="grounding-reason-vis" class="vis-section">
+                <h3>常规停飞原因</h3>
+                <div class="chart-layout-container">
+                    <div class="chart-container">
+                        <canvas id="grounding-reason-chart"></canvas>
+                        <div class="chart-icon-center">
+                            <img src="assets/images/icon-grounded.png" alt="飞机停飞图标">
+                        </div>
+                    </div>
+                    <div class="info-container">
+                        <ul class="info-list" id="grounding-reason-legend">
+                            <!-- Legend will be generated by JS -->
+                        </ul>
+                    </div>
+                </div>
+            </section>
+    
+            <section class="text-section">
+                <p class="dramatic-reveal-sentence">然而林飞的停飞，和这些都没有关系。</p>
+            </section>
+        </div>
+        <!-- ===== MODULE 1 WRAPPER END ===== -->
+    
+        <!-- ===== MODULE 2 WRAPPER START ===== -->
+        <div class="module-wrapper" id="module-two-wrapper">
+            <section class="section-header-image" id="header-grounded">
+                <div class="header-content">
+                    <h2>02 人生迫降</h2>
+                </div>
+            </section>
+            <section class="text-section">
+                <p>2024年11月，林飞接到来自瑞丽航空的停飞通知。通知上赫然写到，"在返回航司面试中不合格"，航司认为林飞的入职主观意愿不够强，故并不同意其返回公司入职，并将他的飞行执照扣存。</p>
+                <p>林飞回忆，在临时安排的面试当天，几个考官几乎没有问什么疑难问题。本以为这个没有太多难度的面试就是走个过场，但在一纸停飞说明下来之后，他才意识到事情的不对。</p>
+                <p>与此同时，由于林飞的情况被瑞丽航空判断为学员主观原因导致的停飞淘汰，航司将他的飞行执照留在了公司，除非林飞愿意赔偿70万的学飞培训费，否则他无法拿回自己的飞行执照，也不能在别的航司寻找其他工作。</p>
+                
+                <div class="testimonial-card">
+                     <div class="testimonial-header">
+                        <video class="testimonial-avatar" src="assets/videos/avatar-linfei.mp4" autoplay loop muted playsinline></video>
+                        <div class="testimonial-author-info">
+                            <h5>林飞</h5>
+                        </div>
+                    </div>
+                    <div class="testimonial-text">
+                        <p>本来这个钱是航校垫付，应该是入职之后公司来出，但是公司没有钱了，只能扣下驾照让我们出这七十万，不然就不放人去自己找工作。</p>
+                    </div>
+                </div>
+                
+                <p>被莫须有原因停飞的养成生，在疫情后格外的多，林飞同届就有超200人。"我们的停飞率和疫情前相比几乎翻了个倍，能够到达20%以上。"</p>
+                 
+                <div class="testimonial-card testimonial-card--expert">
+                     <div class="testimonial-header">
+                        <video class="testimonial-avatar" src="assets/videos/avatar-xiaoyang.mp4" autoplay loop muted playsinline></video>
+                        <div class="testimonial-author-info">
+                            <h5>肖杨</h5>
+                            <cite>资深飞行员</cite>
+                        </div>
+                    </div>
+                    <div class="testimonial-text">
+                        <p>航空公司负担不起这么多飞行员了，因此最简单的方法就是停飞养成生，以此减少飞行员数量的增长。用现在互联网大厂的话讲，这就是航司在降本增效，总有人会被优化。</p>
+                    </div>
+                </div>
+
+            </section>
+            <section class="text-section">
+                <div class="character-intro">
+                    <video class="intro-avatar" src="assets/videos/avatar-yunsheng.mp4" autoplay loop muted playsinline></video>
+                    <h4>东方航空养成生 - 云生</h4>
+                </div>
+                <p>同样在2024年10月，东方航空公司的养成生云生收到了停飞通知，理由是未能在规定期限内通过 <span class="tooltip-trigger" data-tooltip="ICAO英语考试（全称：国际民航组织英语等级考试）是由国际民航组织（ICAO）制定标准、中国民航局具体实施的专业英语能力测试，专为飞行员和空管人员设计，根据中国民航飞行学院的统计数据，单次考试通过率在50%左右。">ICAO英语考试</span>。</p>
+                <p>2024年2月，东方航空发布通知，要求18至21级的飞行养成生必须在商业飞行执照（以下简称商照）取得后的6个月内通过ICAO考试。云生取得商照的时间是在6月，并于10月考完了ICAO，在11月成功获得了通过的成绩，这一切都在规定的期限内完成。但东航还是因为六个月的期限已到的原因将他停飞了。</p>
+                 
+                <div class="testimonial-card">
+                     <div class="testimonial-header">
+                        <video class="testimonial-avatar" src="assets/videos/avatar-yunsheng.mp4" autoplay loop muted playsinline></video>
+                        <div class="testimonial-author-info">
+                            <h5>云生</h5>
+                        </div>
+                    </div>
+                    <div class="testimonial-text">
+                        <p>我6月份才正式拿到商照。但是最后被停飞的时候说要从3月通知发出时开始算到9月，不是从6月开始算。这个事情最终解释权确实在航司手里。我们同一批完成训练的养成生都收到这个通知，已经有超过100人都被这个通知停飞。</p>
+                        <p>以前，毕业回公司之后再通过ICAO考试的也大有人在，几乎没人被这个考试卡掉过。</p>
+                    </div>
+                </div>
+
+                <p>因为提前结束的考试期限而被停飞之后，云生觉得无比的冤枉。"如果我们确实通过考试晚了，那么我心甘情愿，但是现在我们是因为规则突然变动才被停飞的，那没有一点公平可言"</p>
+            </section>
+            <section id="timeline-conflict-section" class="vis-section">
+                <h3>一道“算术题”引发的停飞</h3>
+            <div id="timeline-conflict-vis">
+                <div class="timeline-axis">
+                    <span class="month">2月</span><span class="month">3月</span><span class="month">4月</span><span class="month">5月</span><span class="month">6月</span><span class="month">7月</span><span class="month">8月</span><span class="month">9月</span><span class="month">10月</span><span class="month">11月</span><span class="month">12月</span>
+                </div>
+                <div class="timeline-bar airline-period" data-label="航司期限">
+                    <span>航司认定的6个月期限 (3月-9月)</span>
+                </div>
+                <div class="timeline-bar student-period" data-label="云生期限">
+                    <span>云生理解的6个月期限 (6月-12月)</span>
+                </div>
+
+                <div class="timeline-event event-start-airline" data-date="2024-03-01" data-label="东航规定起算日"></div>
+                <div class="timeline-event event-start-student" data-date="2024-06-24" data-label="云生获得商照"></div>
+                <div class="timeline-event event-pass" data-date="2024-10-15" data-label="通过考试 ✅"></div>
+                <div class="timeline-event event-fail" data-date="2024-11-07" data-label="被通知停飞 ❌"></div>
+            </div>
+            </section>
+
+            <section class="text-section">
+                <p>自入校以来，云生就一直在努力学习并顺利完成了实机训练。但冰冷的停飞通知却告诉他，所有的努力都是徒劳无功。</p>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                       <video class="testimonial-avatar" src="assets/videos/avatar-yunsheng.mp4" autoplay loop muted playsinline></video>
+                       <div class="testimonial-author-info">
+                           <h5>云生</h5>
+                           <cite>在和东方航空公司对簿公堂后，已身心俱疲</cite>
+                       </div>
+                   </div>
+                   <div class="testimonial-text">
+                       <p>所有被停飞的学员都在努力考试，但是谁知道通过了考试命运也不由自己决定。</p>
+                       <p>我现在在家里都不好发语音聊这个事，我不想再让我爸妈听到这个事情了。</p>
+                   </div>
+               </div>
+
+                 <div class="character-intro">
+                    <video class="intro-avatar" src="assets/videos/avatar-gaojie.mp4" autoplay loop muted playsinline></video>
+                    <h4>民航副驾驶 & 公众号主笔 - 高杰</h4>
+                </div>
+                <p>云生这样的故事，民航副驾驶高杰，已经听过数十次了。随着养成生困境越发普遍，高杰开始在自己的微信公众号上写作，类似的报道他已写下数十篇。</p>
+                 
+                <div class="testimonial-card testimonial-card--expert">
+                     <div class="testimonial-header">
+                        <video class="testimonial-avatar" src="assets/videos/avatar-gaojie.mp4" autoplay loop muted playsinline></video>
+                        <div class="testimonial-author-info">
+                            <h5>高杰</h5>
+                        </div>
+                    </div>
+                    <div class="testimonial-text">
+                        <p>你们能相信在2024年了，训练打人和随意停飞，依然在某些航校和航司是普遍现象吗？</p>
+                        <p>有的航校要整顿，把学生按指标停掉，就是最快出成绩和给上头交代的方式。有的学生检查之前，就看到基地经理直接在办公室指派检查员，明天这个人你来'杀'。</p>
+                        <p>有学生和一个大关系户分到一个组，这种就很绝望，关系户停不掉那只能停你嘛，眼睁睁看着卷铺盖走掉。</p>
+                        <p>学生因为考位紧张的缘故想申请考试延期,但是一申报上去就会被踢皮球,学校没有部门直接管理这件事。</p>
+                        <p>比惨没有止境。</p>
+                    </div>
+                </div>
+
+            </section>
+            <section id="airline-cases-container" class="vis-section">
+                <h3>不止一家航司的困境</h3>
+                 <div class="case-file-grid">
+                     <div class="case-file">
+                         <h4><img src="assets/images/icon-okay.png" alt="奥凯航空">奥凯航空</h4>
+                         <p>截至2025年2月，奥凯航空有一百多名飞行养成生无法入职，公司口头通知部分学员自费80万元转向别的航司。无法入职的养成生只能从事卖保险、卖房子、卖黄焖鸡等工作。</p>
+                     </div>
+                     <div class="case-file">
+                         <h4><img src="assets/images/icon-kunming.png" alt="昆明航空">昆明航空</h4>
+                         <p>2021年，有毕业生在昆明航空入职受阻，补助被取消，有人被拖到三十岁仍未入职。公司领导开会时笑着宣称让待飞学员"好好安排一下自己以后该做什么"。</p>
+                     </div>
+                     <div class="case-file">
+                         <h4><img src="assets/images/icon-juneyao.png" alt="吉祥航空">吉祥航空</h4>
+                         <p>2025年2月，吉祥航空将本应去年入职的学员扣在公司自习，后要求签转地服合同。不签就主动停飞赔违约金，签了则面临长时间劳作和低薪。</p>
+                     </div>
+                 </div>
+            </section>
+            <section class="text-section">
+                <p>一纸轻飘飘的停飞证明，对于养成生来说却是重若千斤的烙印。</p>
+                <p>面对航司或是拖延入职、或是巧立名目停飞的重重障碍，养成生们在航司的决定面前却全然没有话语权。当初一笔一画订下的明文合同，现如今却成了令其身陷囹圄的紧箍。</p>
+                
+                <div class="testimonial-card testimonial-card--highlight">
+                    <div class="testimonial-text">
+                        <p>"哪有话语权啊，你不飞有的是人飞。"</p>
+                    </div>
+                </div>
+
+                 <p>对于早早签下合约，被合同"买断终身"的养成生们来说，通往长安的道路只有一条。在这条唯一的道路上，许多人已经卷得头破血流。而困境的源头，是曾经的疫情和疫情后艰难复苏的航空业。</p>
+            </section>
+        </div>
+        <!-- ===== MODULE 2 WRAPPER END ===== -->
+    
+        <!-- ===== MODULE 3 WRAPPER START ===== -->
+        <div class="module-wrapper" id="module-three-wrapper">
+            <section class="section-header-image" id="header-rules">
+                <div class="header-content">
+                    <h2>03 高压滞留</h2>
+                </div>
+            </section>
+            <section class="text-section">
+                <p class="lead">新冠疫情，这个离我们似乎已有些遥远的名词，对全国超5万的飞行养成生来说却代表着一段影响至今都难以消除的经历。</p>
+                <p>与普通的大学生能够进行线上课程学习不同，对于需要进行实地学飞的养成生来说，20年到22年的疫情，意味着满足完成商照学习所需要的300小时实机训练被大幅期延后，原本四年能学完的飞行课程，在巨大的不确定性中被无限延长。</p>
+                
+                <div class="testimonial-card">
+                     <div class="testimonial-header">
+                        <video class="testimonial-avatar" src="assets/videos/avatar-liukong.mp4" autoplay loop muted playsinline></video>
+                        <div class="testimonial-author-info">
+                            <h5>刘空</h5>
+                            <cite>苏南瑞丽航空公司的前养成生</cite>
+                        </div>
+                    </div>
+                    <div class="testimonial-text">
+                        <p>"疫情的时候去了我们这个专业，你飞个五年六年，那都是正常的，正常的话能四年飞完的那很少。"</p>
+                    </div>
+                </div>
+
+                <p>在历经在超出寻常的学飞时间之后，与养成生们迎头撞上的是民航业发展受挫，航司营收严重下滑的行业处境。在航班班次大幅下滑、公司陷入亏损危机的背景之下，"公司不要那么多人了"的尴尬处境为本就超时学习的养成生们雪上加霜。</p>
+                <p>刘空表示，从14级到19级都有养成生陷入被公司拒绝入职的窘境，在中飞院就读的养成生还有机会参加中飞院介入下航司安排的面试，其他小航校的学员们则直接被抛弃。</p>
+                
+                <div class="testimonial-card">
+                     <div class="testimonial-header">
+                        <video class="testimonial-avatar" src="assets/videos/avatar-liukong.mp4" autoplay loop muted playsinline></video>
+                        <div class="testimonial-author-info">
+                            <h5>刘空</h5>
+                        </div>
+                    </div>
+                    <div class="testimonial-text">
+                        <p>"经过疫情的冲击以后，三大行还有能力去对抗这种风险，那小公司的话就没办法，扛不住这些风险，不得不清退养成生。"</p>
+                    </div>
+                </div>
+
+                <p>在民航业蓬勃发展的黄金年代,航校与公司不论招收多少养成生,都能够随着高歌猛进的行业发展而顺利吸纳入职。疫情的骤然降临,却使从航校招生到航司消化的职业链条被彻底打破了。</p>
+            </section>
+            
+            <section id="industry-charts-container" class="vis-section">
+                <h3>黄金十年与骤然冷却的"剪刀差"</h3>
+                <div class="chart-wrapper dual-charts">
+                     <h4>行业营收 vs 飞行员数量</h4>
+                    <canvas id="industry-chart-1"></canvas>
+                </div>
+                <div class="chart-wrapper dual-charts">
+                     <h4>旅客运输量 vs 航校招飞数</h4>
+                    <canvas id="industry-chart-2"></canvas>
+                </div>
+                <p class="vis-conclusion" style="max-width: 800px; margin-top: 2rem; text-align: justify;">行业营收与航线数量下滑的同时，养成生招生数却仍然维持疫情前的高位。"但是一旦航司消化不动了，没人接盘了，那就惨了。"高杰如是说，"当时难道没有人发现这个系统性风险吗？当然有，但是市场乐观的情绪，高歌猛进习惯了,毕竟这么多年都缺飞行员，航空公司即使觉得有一天会不缺，那一天也必然在很久之后。"</p>
+                <p class="vis-conclusion" style="max-width: 800px; margin-top: 1rem; text-align: justify;">在如此过剩的招生下，畸形的停飞筛选才成为了航司降本增效的优选方式，也成为了飞行养成生的梦魇。</p>
+            </section>
+            
+            <section class="text-section">
+                <p>行业的复苏也许可以等待，但飞行学员的心理健康却关系着未来的航空安全。即使没有被停飞，停飞考验的阴影下，养成生的心理安全正在成为问题。</p>
+                <p>在中国民航飞行学院薛瑞的《民航飞行学员心理应激、心理韧性与安全行为关系的研究》论文中写到：飞行员作为航空器的直接操控者,在长期的飞行环境中面对各种挑战,而飞行学员作为未来民航飞行员的主要来源,其心理状态直接影响飞行操作的安全性和决策质量。</p>
+            </section>
+            <section id="risk-diagram-section" class="vis-section">
+                <h3>失控的驾驶舱：被忽视的心理健康</h3>
+                <p>根据空难数据统计网站planecrashinfo的数据,超过50%的空难来自驾驶员状态问题,从上世纪80年代到21世纪10年代,由于驾驶员状态和失误导致的空难占比更是逐年上升。</p>
+                <div class="risk-diagram">
+                    <div class="risk-center">
+                        <span>心理</span>
+                        <span>风险</span>
+                    </div>
+                    <div class="risk-item" id="risk-1">
+                        <img src="assets/images/icon-fatigue.png" alt="疲劳图标">
+                        <h4>精神疲劳</h4>
+                        <p>埃塞俄比亚航空409号航班，飞行员精神疲劳致控制输入不一致，失事坠毁致90人遇难。</p>
+                    </div>
+                     <div class="risk-item" id="risk-2">
+                        <img src="assets/images/icon-depression.png" alt="抑郁图标">
+                        <h4>重度抑郁</h4>
+                        <p>德国之翼航空9525号航班，副驾驶抑郁心理导致驾机自杀，撞山坠毁致150人遇难。</p>
+                    </div>
+                     <div class="risk-item" id="risk-3">
+                        <img src="assets/images/icon-conflict.png" alt="冲突图标">
+                        <h4>情绪失控</h4>
+                        <p>东海航空DZ6297航班，飞行员情绪失控与空乘互殴，严重危及飞行安全。</p>
+                    </div>
+                     <div class="risk-item" id="risk-4">
+                        <img src="assets/images/icon-distraction.png" alt="分心图标">
+                        <h4>注意力分配不当</h4>
+                        <p>美国东方航空401号航班，飞行员注意力分配不恰当，未关注飞行高度致101人遇难。</p>
+                    </div>
+                </div>
+            </section>
+            <section class="text-section">
+                <p>在由业内学者黄步庭撰写的《民航飞行大学生各阶段心理压力水平测量与应对建议》一文中,停飞为飞行学员带来的压力超过课业压力,考试压力等等因素,属于主要压力来源之一。</p>
+                <p>停飞就像那把达摩克利斯之剑,盘旋在每一个飞行学员头顶,不论是否落下,都让人压抑窒息。</p>
+            </section>
+            <section id="pressure-cloud-section" class="vis-section">
+                <h3>压力的来源：无处不在的达摩克利斯之剑</h3>
+                <div class="pressure-cloud">
+                    <img src="assets/images/student-under-pressure.png" alt="被压力笼罩的养成生" id="pressure-student-img">
+                    <span data-weight="0.838">分院对飞行训练严格的要求或规定</span>
+                    <span data-weight="0.837">短时间内完成多项工作任务</span>
+                    <span data-weight="0.832">担心飞行训练时发生紧急状况</span>
+                    <span data-weight="0.829">要求低容错率</span>
+                    <span data-weight="0.814">驾驶舱单一狭小的环境</span>
+                    <span data-weight="0.812">理论知识迁移到实践操作的难度大</span>
+                    <span data-weight="0.811">困难的飞行科目训练</span>
+                    <span data-weight="0.799">担心所受训练不足</span>
+                    <span data-weight="0.798">长时间的飞行</span>
+                    <span data-weight="0.789">飞机产生的噪音</span>
+                    <span data-weight="0.786">飞机不合理的驾驶舱设计</span>
+                    <span data-weight="0.782">飞行中承担重大责任</span>
+                    <span data-weight="0.778">缺乏教员或上级的鼓励与支持</span>
+                    <span data-weight="0.755">关于执照的检查或考试</span>
+                    <span data-weight="0.738">复杂天气条件下飞行</span>
+                    <span data-weight="0.696">专业性过强导致未来工作选择局限</span>
+                    <span data-weight="0.693">目前的飞行表现不佳</span>
+                    <span data-weight="0.690">长期集体生活感到不适</span>
+                    <span data-weight="0.684">与教员(或检查员)相处气氛不佳</span>
+                    <span data-weight="0.674">枯燥的日常生活</span>
+                </div>
+                 <p class="data-source">数据来源:《民航飞行学员心理应激、心理韧性与安全行为关系的研究》</p>
+            </section>
+            <section id="barrage-quote-section" class="vis-section">
+                <div class="barrage-container"></div>
+                <div class="static-quotes-container">
+                    <div class="testimonial-card">
+                        <div class="testimonial-text">
+                            <p>我们入学前都经过心理筛查，但是训练这么几年之后没有谁不是整天忧愁的。</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-text">
+                             <p>如果你去报告自己的心理问题，别说帮你了，很可能就因此把你停飞，所以没人敢说。</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-text">
+                             <p>也许行业恢复了，停飞政策也明晰了，未来的养成生还能有些希望。</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <!-- ===== MODULE 3 WRAPPER END ===== -->
+    
+        <!-- ===== MODULE 4 WRAPPER START ===== -->
+        <div class="module-wrapper" id="module-four-wrapper">
+            <section class="section-header-image" id="header-aftermath">
+                <div class="header-content">
+                    <h2>04 行路难寻</h2>
+                </div>
+            </section>
+            <section class="text-section">
+                <p>另一重严峻的现实是，由于专业特殊、专一性强和学历问题，在航空业之外，一份航校毕业的文凭更难以被社会所认可。在与蓝天告别、被迫迈出航校的大门后，等待他们的只有送外卖、跑网约车等学历要求较低的工作。昔日驾驶舱中复杂的仪表显示与操纵杆，变成了小电驴上的电量和网约车的手刹。</p>
+            </section>
+            <h2 class="pathway-question">出路在哪里？</h2>
+            <section id="pathway-vis-container">
+                <div class="pathway-sticky-wrapper">
+                    <div id="pathway-image-container">
+                        <img src="assets/images/pathway-2-protest.jpg" id="pathway-img-1" class="pathway-frame" alt="出路：维权抗争">
+                        <img src="assets/images/pathway-1-study.jpg" id="pathway-img-2" class="pathway-frame" alt="出路：转行学习">
+                        <img src="assets/images/pathway-3-waiting.jpg" id="pathway-img-3" class="pathway-frame" alt="出路：渺茫等待">
+                    </div>
+                    <div id="pathway-text-wrapper">
+                        <p id="pathway-text"></p>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="vis-section" id="industry-profit-loss-section">
+                <h3>寒冬与复苏</h3>
+                <p>养成生们面临的困境，是整个民航业在疫情期间遭遇重创的缩影。下图直观地展示了民航业在过去几年经历的财务“过山车”。连续三年的巨额亏损是航司“降本增效”、收紧招聘的直接原因。然而，隧道尽头终有光亮。2023年行业利润的回正，标志着最困难的时期已经过去，为后续的改革与调整创造了必要条件。</p>
+                <div class="chart-wrapper" style="height: 350px;">
+                    <canvas id="profit-loss-chart"></canvas>
+                </div>
+                <p class="data-source">数据来源：中国民航局</p>
+            </section>
+    
+            <section class="text-section conclusion">
+                <h2 class="section-title" id="change-starts-trigger"><span>改变正在发生</span></h2>
+                <p>养成生们寻找出路的同时，行业的复苏和培养体系的优化正在发生。2025年1月召开的全国民航工作会议披露，2024年全行业同比减亏206亿元，总体实现扭亏为盈。疫情冲击为民航业带来的影响，正随着航线的恢复与运输量的增长慢慢消弭。</p>
+                <p>航校与航司内，新的淘汰制度也在逐步建成。长期以来，飞行学员的停飞决策主要依赖于飞行教员或检查员对其操作过程的主观判断。然而，由于不同教员对训练大纲和评估标准的理解存在差异，这种评估方式往往难以保证结果的客观性和稳定性。</p>
+                <p>为改变这一状况，中国民航局在《关于全面深化运输航空公司飞行训练改革指导意见》中明确提出，要树立"基于核心胜任能力实施飞行训练"的新理念，并推行"大数据+飞行训练"战略，强调通过科学分析学员的运行数据和训练表现，在有限的训练时间内实现个性化、精准化的训练评估，从而提升飞行人才培养的效率和科学性。</p>
+            </section>
+
+
+            <section class="vis-section" id="cbta-vis-section">
+                <!-- 标题和说明文字保持不变 -->
+                <h3>基于胜任能力(CBTA)的训练体系</h3>
+                <p>中国民用航空飞行学院率先对该政策落地进行试点，与空客公司合作开发了基于胜任能力（CBTA）的初始飞行训练体系，进一步推进淘汰制度的量化。</p>
+                
+                <!-- REFINED: 1. 将两个标题放在一起 -->
+                <div class="cbta-headers">
+                    <h4 class="tech">技术性胜任力 (4项)</h4>
+                    <h4 class="non-tech">非技术性胜任力 (5项)</h4>
+                </div>
+
+                <!-- REFINED: 2. 创建一个横向滚动的卡片容器 -->
+                <div class="cbta-cards-wrapper">
+                    <!-- 所有卡片现在是兄弟节点，并直接添加 'tech' 或 'non-tech' 类 -->
+                    
+                    <!-- 技术性能力卡片 -->
+                    <div class="competency-card tech">
+                        <div class="competency-card-header">
+                            <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-3.32 19.49c.23-.33.34-.72.32-1.12s-.1-1.13-.1-1.13a10.68 10.68 0 0 1-5.4-1.54 1 1 0 0 1 .6-1.85 9.17 9.17 0 0 1 4.28 1.48 1 1 0 0 0 1.22-.38 10.45 10.45 0 0 1 3-2.18 10.36 10.36 0 0 1-3-2.18A10.68 10.68 0 0 1 8.2 3.07a1 1 0 0 1 .79-1A10.34 10.34 0 0 1 12 2zM12 4a8.33 8.33 0 0 0-2.35.42 1 1 0 0 1-.8-.44 8.67 8.67 0 0 1-.37-5.32 1 1 0 0 0-1.87-.7A8.36 8.36 0 0 0 4 12a8.36 8.36 0 0 0 2.58 6.05 1 1 0 0 0 1.87-.7 8.67 8.67 0 0 1 .37-5.32 1 1 0 0 1 .8-.44A8.33 8.33 0 0 0 12 4z"/></svg></div>
+                            <h5>知识运用 (KNO)</h5>
+                        </div>
+                        <p>理论知识的正确应用，航空气象、法规等。</p>
+                    </div>
+                    <div class="competency-card tech">
+                        <div class="competency-card-header">
+                            <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.78 3.22a1 1 0 0 0-1.56 0l-1 1A9.77 9.77 0 0 0 12 2a10 10 0 1 0 10 10 9.77 9.77 0 0 0-2.22-6.22l1-1a1 1 0 0 0 0-1.56zM12 20a8 8 0 1 1 8-8 8 8 0 0 1-8 8zm4.24-12.76a1 1 0 0 0-1.42-1.42L12 8.66 9.17 5.83a1 1 0 0 0-1.42 1.42L10.59 10l-2.83 2.83a1 1 0 1 0 1.42 1.42L12 11.41l2.83 2.83a1 1 0 0 0 1.42-1.42L13.41 10z"/></svg></div>
+                            <h5>程序运用 (APK)</h5>
+                        </div>
+                        <p>标准操作程序（SOP）的执行准确性。</p>
+                    </div>
+                    <div class="competency-card tech">
+                        <div class="competency-card-header">
+                            <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 16a4 4 0 1 1 4-4 4 4 0 0 1-4 4zm0-6a2 2 0 1 0 2 2 2 2 0 0 0-2-2zM3 12a9 9 0 1 1 9 9 9 9 0 0 1-9-9zm9-7a7 7 0 1 0 7 7 7 7 0 0 0-7-7z"/></svg></div>
+                            <h5>人工航径管理 (FPM)</h5>
+                        </div>
+                        <p>飞机操纵的精准度（如姿态、航向、高度控制）。</p>
+                    </div>
+                    <div class="competency-card tech">
+                        <div class="competency-card-header">
+                            <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 11a1 1 0 0 0-1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-5a1 1 0 0 0-2 0v5a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-5a1 1 0 0 0-1-1zM3.41 4.59a1 1 0 1 0-1.42 1.42L11.29 15.3a1 1 0 0 0 1.42 0l9.3-9.29a1 1 0 0 0-1.42-1.42L12 12.59z"/></svg></div>
+                            <h5>自动化航径管理 (FPA)</h5>
+                        </div>
+                        <p>自动驾驶系统的合理使用与监控。</p>
+                    </div>
+
+                    <!-- 非技术性能力卡片 -->
+                    <div class="competency-card non-tech">
+                        <div class="competency-card-header">
+                            <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 3a1 1 0 0 0-2 0v6.18a3 3 0 0 0-3 2.82V16a3 3 0 0 0 3 3h2a3 3 0 0 0 3-3v-4a3 3 0 0 0-3-2.82zM11 16v-4a1 1 0 0 1 1-1 1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-2a1 1 0 0 1-.94-.66A1 1 0 0 1 11 16zM20 12a1 1 0 0 0-1-1h-2a1 1 0 0 0 0 2h2a1 1 0 0 0 1-1zM7 11a1 1 0 0 0 0 2h2a1 1 0 0 0 0-2z"/></svg></div>
+                            <h5>沟通 (COM)</h5>
+                        </div>
+                        <p>机组间信息传递的清晰度与及时性。</p>
+                    </div>
+                    <div class="competency-card non-tech">
+                            <div class="competency-card-header">
+                            <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 12.25a2.25 2.25 0 1 0-2.25-2.25A2.25 2.25 0 0 0 12 12.25zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg></div>
+                            <h5>领导力与团队合作 (LTW)</h5>
+                        </div>
+                        <p>驾驶舱资源管理（CRM）表现。</p>
+                    </div>
+                    <div class="competency-card non-tech">
+                        <div class="competency-card-header">
+                            <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 6.5a5.5 5.5 0 1 0 5.5 5.5A5.51 5.51 0 0 0 12 6.5zm0 9a3.5 3.5 0 1 1 3.5-3.5A3.5 3.5 0 0 1 12 15.5zM12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/></svg></div>
+                            <h5>情景意识 (SAW)</h5>
+                        </div>
+                        <p>对飞行环境、风险的动态感知能力。</p>
+                    </div>
+                    <div class="competency-card non-tech">
+                        <div class="competency-card-header">
+                            <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a1 1 0 0 0-1 1v1a1 1 0 0 0 2 0V3a1 1 0 0 0-1-1zm0 18a1 1 0 0 0 1-1v-1a1 1 0 0 0-2 0v1a1 1 0 0 0 1 1zm8.71-3.71a1 1 0 0 0-1.42 0l-.7.7a1 1 0 1 0 1.41 1.42l.71-.71a1 1 0 0 0 0-1.41zM5.71 6.71a1 1 0 0 0 0-1.42l-.7-.7a1 1 0 0 0-1.42 1.41l.71.71a1 1 0 0 0 1.41 0zM22 12a1 1 0 0 0-1-1h-1a1 1 0 0 0 0 2h1a1 1 0 0 0 1-1zM4 12a1 1 0 0 0-1-1H2a1 1 0 0 0 0 2h1a1 1 0 0 0 1-1zm15.29 4.29a1 1 0 0 0 1.42 1.42l.7-.7a1 1 0 0 0-1.41-1.41zM6.41 5.29a1 1 0 0 0-1.41 0l-.71.71A1 1 0 0 0 5.7 7.41l.71-.71a1 1 0 0 0 0-1.41z"/></svg></div>
+                            <h5>工作负荷管理 (WLM)</h5>
+                        </div>
+                        <p>任务优先级划分与压力应对。</p>
+                    </div>
+                    <div class="competency-card non-tech">
+                        <div class="competency-card-header">
+                            <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.23 21.77a1 1 0 0 1-1.42 0l-3-3a1 1 0 0 1 0-1.42A7.12 7.12 0 0 1 12 4a7.12 7.12 0 0 1 3.23 13.32l-3 3zM12 6a5.12 5.12 0 0 0-2.32 9.87l2.26-2.26a1 1 0 0 1 1.41 0 1 1 0 0 1 0 1.41l-2.26 2.26A5.12 5.12 0 0 0 12 6zM15 9.5a1.5 1.5 0 1 1-1.5-1.5A1.5 1.5 0 0 1 15 9.5z"/></svg></div>
+                            <h5>问题解决与决策 (PSD)</h5>
+                        </div>
+                        <p>特情处置的合理性与效率。</p>
+                    </div>
+                </div>
+                
+                <!-- 结论文字保持不变 -->
+                <p class="vis-conclusion">中飞院在遂宁分院的试点数据表明，采用CBTA后，训练效率显著提升20%，训练中人为因素导致的不安全事件发生率下降了35%。</p>
+            </section>
+    
+            <section class="text-section conclusion">
+                 <p>航司的停飞细则也在一步步完善，2025年东航新发布的关于ICAO考试的文件中将停飞日期进行精确计算，而不是简单的"六个月内通过"的说法。</p>
+                 <div class="testimonial-card testimonial-card--expert">
+                    <div class="testimonial-header">
+                       <video class="testimonial-avatar" src="assets/videos/avatar-gaojie.mp4" autoplay loop muted playsinline></video>
+                       <div class="testimonial-author-info">
+                           <h5>高杰</h5>
+                       </div>
+                   </div>
+                   <div class="testimonial-text">
+                       <p>"各种停飞的新规已经磨合好了，这一批是突然改了游戏规则被停，下一批如果做好宣讲，至少能保证不出现莫须有的停飞。"</p>
+                   </div>
+               </div>
+            </section>
+            <section class="text-section conclusion">
+                <h2 class="section-title"><span>另一条跑道：低空经济</span></h2>
+                <p>离开民航的铁饭碗，低空经济也可以成为一条出路。中国航空学会发布的2024年低空经济场景白皮书的数据显示，除飞行员培训外通用航空仍然有上百个未来应用场景。对于被停飞的学员来说，拥有通用航空飞行经历意味着转向其他应用场景的门槛更低。</p>
+            </section>
+            
+            <section id="low-altitude-vis" class="vis-section">
+                <h3>2024通用航空应用场景</h3>
+                <div class="chart-layout-container">
+                    <div class="chart-container">
+                        <canvas id="low-altitude-chart"></canvas>
+                        <div class="chart-icon-center">
+                            <img src="assets/images/icon-propeller.png" alt="通用航空飞机图标">
+                        </div>
+                    </div>
+                    <div class="info-container">
+                        <ul class="info-list" id="low-altitude-legend">
+                           <!-- Legend will be generated by JS -->
+                        </ul>
+                    </div>
+                </div>
+                <p class="data-source">数据来源：2024低空经济场景白皮书</p>
+            </section>
+    
+            <section class="text-section conclusion">
+                <p>与此同时，对于养成生来说，即使现在无法在低空经济领域找到心仪的工作，但是发展中民用无人机行业在未来也能够帮助缓解转型困难。</p>
+            </section>
+            
+            <section class="vis-section" id="drone-map-section-new">
+                <h3>民用无人机运营单位分布(截至2024年底)</h3>
+                <div class="iframe-map-wrapper">
+                    <div id="china-map" style="width:100%;height:650px;"></div>
+                </div>
+                <p class="data-source" style="margin-top:1rem;">数据来源：2024年民航行业发展统计公报</p>
+                <p class="vis-conclusion">截至2024年底，获得无人机运营合格证的单位共19,979家。</p>
+            </section>
+        </div>
+        <!-- ===== MODULE 4 WRAPPER END ===== -->
+    
+        <!-- ===== Epilogue Section Start ===== -->
+        <section id="epilogue">
+            <div class="text-section conclusion">
+                <p>但对于已经被停飞的养成生来说，停飞留下的伤痕早已难以愈合。</p>
+                <div class="character-outcomes">
+                    <div class="character-card">
+                        <video class="character-avatar" src="assets/videos/avatar-yunsheng.mp4" autoplay loop muted playsinline></video>
+                        <h4>云生</h4>
+                        <p>云生最终来到一个通航机场实习，繁重的工作让他时常面临加班到深夜，在他有空余时间坐下来讲述自己维权经历的时候，微信绿色语音条上的时间已经显示十一点半了。</p>
+                    </div>
+                    <div class="character-card">
+                        <video class="character-avatar" src="assets/videos/avatar-linfei.mp4" autoplay loop muted playsinline></video>
+                        <h4>林飞</h4>
+                        <p>林飞还在等待能够重新入职公司的消息，尽管在网约车上日夜奔波中补贴家用，在公司发消息过来说有机会参加快递公司飞行员入职面试的时候，他还是尽可能不错过任何一次机会。</p>
+                    </div>
+                    <div class="character-card">
+                        <video class="character-avatar" src="assets/videos/avatar-liukong.mp4" autoplay loop muted playsinline></video>
+                        <h4>刘空</h4>
+                        <p>刘空在无法入职的两年后参加了其他航司面试，目前他已入职新的航空公司，担任副驾驶的职位。</p>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                   <div class="testimonial-text">
+                       <p>"我还是想飞的，如果能重新选择，我还是想当一名飞行员。"</p>
+                   </div>
+               </div>
+
+                <p class="final-word" style="font-size: 2.5rem; margin-top: 45vh; margin-bottom: 50vh; color: var(--color-text-heading);">所有人都在等待明天。</p>
+            </div>
+            
+            <footer id="page-footer">
+                <h2>文献引用与参考资料</h2>
+                <ol>
+                    <li>三联生活周刊.东航89名飞行学员被停飞：当航空业开始降本增效. <a href="https://mp.weixin.qq.com/s/RVQUC2wXdIvyN4paJMCkfw" target="_blank" rel="noopener noreferrer">https://mp.weixin.qq.com/s/RVQUC2wXdIvyN4paJMCkfw</a></li>
+                    <li>财新.特稿｜东航委培飞行员解约风波. <a href="https://mp.weixin.qq.com/s/zuVrnFojJdxREwnqoKEvQw" target="_blank" rel="noopener noreferrer">https://mp.weixin.qq.com/s/zuVrnFojJdxREwnqoKEvQw</a></li>
+                    <li>南方周末.民航飞行学员积压四年：有的在等待，有的在开网约车. <a href="https://mp.weixin.qq.com/s/wc4sOTz7gAF9DCWCpyPhJA" target="_blank" rel="noopener noreferrer">https://mp.weixin.qq.com/s/wc4sOTz7gAF9DCWCpyPhJA</a></li>
+                    <li>赵禹诚.ZH航空公司飞行员培训体系改进研究[D].哈尔滨工业大学,2023.</li>
+                    <li>任丹.面向胜任力的飞行学员筛选检查评价方法研究[D].中国民用航空飞行学院,2023.DOI:10.27722/d.cnki.gzgmh.2023.000047.</li>
+                    <li>薛睿.民航飞行学员心理应激、心理韧性与安全行为关系的研究[D].中国民用航空飞行学院,2024.DOI:10.27722/d.cnki.gzgmh.2024.000138.</li>
+                    <li>刘闯,朱文兵,张帅.初始飞行学员心理压力评估与管理方法分析[J].民航管理,2023,(10):89-93.</li>
+                    <li>吴皓珲.飞行员心理风险因素识别与评估方法研究[D].电子科技大学,2024.DOI:10.27005/d.cnki.gdzku.2024.005001.</li>
+                    <li>高培新.国外飞行员培养模式解读及对我国飞行员培养的启示[J].产业与科技论坛,2020,19(13):99-100.</li>
+                    <li>柴宏俊,路晶,邓劲礼,等.基于LDA模型的飞行学员停飞主因分析[J].计算机与数字工程,2025,53(03):770-775.</li>
+                </ol>
+            </footer>
+        </section>
+        <!-- ===== Epilogue Section End ===== -->
+    </main>
+    
+    <nav id="chapter-nav">
+        <ul>
+        <!-- 注意：我们为每个li添加了data-nav-id属性，方便JS精确匹配 -->
+            <li data-nav-id="header-selection"><a href="#header-selection"><span class="dot"></span><span class="label">光环褪去</span></a></li>
+            <li data-nav-id="header-grounded"><a href="#header-grounded"><span class="dot"></span><span class="label">人生迫降</span></a></li>
+            <li data-nav-id="header-rules"><a href="#header-rules"><span class="dot"></span><span class="label">高压滞留</span></a></li>
+            <li data-nav-id="header-aftermath"><a href="#header-aftermath"><span class="dot"></span><span class="label">行路难寻</span></a></li>
+        </ul>
+    </nav>
+    
+
+
+    <div id="page-decorations">
+        <div id="progress-indicator">
+            <svg id="progress-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 1000" preserveAspectRatio="xMidYMin meet">
+                <path id="flight-path" d="M 25,20 C 60,150 5,300 25,450 C 50,600 -10,750 25,980" fill="none" />
+                <g id="progress-plane-group">
+                    <path id="progress-plane" d="M-1.11,2.75 L16.39,-15.75 C17.34,-16.7 17.34,-18.3 16.39,-19.25 L13.89,-21.75 C12.94,-22.7 11.34,-22.7 10.39,-21.75 L-1.11,-10.25 L-11.61,-20.75 C-12.71,-21.85 -14.49,-21.85 -15.59,-20.75 L-18.09,-18.25 C-19.19,-17.15 -19.19,-15.37 -18.09,-14.27 L-1.11,2.75 Z M-4.39,4.75 L-20.09,20.45 C-21.04,21.4 -21.04,22.99 -20.09,23.94 L-17.59,26.44 C-16.64,27.39 -15.04,27.39 -14.09,26.44 L-1.11,13.46 L10.39,24.94 C11.49,26.04 13.27,26.04 14.37,24.94 L16.87,22.44 C17.97,21.34 17.97,19.56 16.87,18.46 L-4.39,4.75 Z" />
+                </g>
+            </svg>
+        </div>
+        <!-- 保留这个右侧边栏 -->
+        <div id="right-side-bar"></div>
+
+    </div>
+    
+    <!-- IMPORTANT: Remember to run this file from a local server for the map to work. -->
+    <script src="js/main.js"></script>
+</body>
+</html>
